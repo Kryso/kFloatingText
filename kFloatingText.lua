@@ -6,6 +6,17 @@ local MiniCombatTextFrame = Internals.MiniCombatTextFrame;
 
 -- **** main ****
 
+local highlightFrame = CombatTextFrame( "player" );
+highlightFrame:SetWidth( 120 );
+highlightFrame:SetHeight( 200 );
+highlightFrame:SetPoint( "CENTER", UIParent, "CENTER", 0, 0 );
+highlightFrame:SetSpeed( 35 );
+highlightFrame:SetMaxSize( 25 );
+highlightFrame:DisableDamage();
+highlightFrame:DisableHealing();
+highlightFrame:EnableCombat();
+highlightFrame:EnableDispels();
+
 -- player
 local playerFrame = CombatTextFrame( "player" );
 playerFrame:SetParent( UIParent );
