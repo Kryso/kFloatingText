@@ -204,6 +204,10 @@ local ctor = function( self, baseCtor, unit )
 		self:SetParent( unit );
 	end
 	
+	--[[local background = kWidgets.Texture( self );
+	background:SetAllPoints( self );
+	background:SetTexture( 1, 1, 1, 1 );]]
+	
 	self.healColor = { 0, 1, 0, 1 };
 	self.damageColor = { 1, 0, 0, 1 };
 	self.combatColor = { 1, 1, 0, 1 };
