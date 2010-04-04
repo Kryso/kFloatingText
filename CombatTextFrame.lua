@@ -45,8 +45,19 @@ local HandleCombat = function( self, inCombat )
 	self:Add( inCombat and "+ COMBAT +" or "- COMBAT -", self.maxSize, self.combatColor, 4 );
 end
 
-local HandleDispel = function( self, auraName, failed )
-	self:Add( ( failed and "|cffff0000Failed:|r " or "|cff00ff00Removed:|r " ) .. auraName, self.maxSize, self.dispelColor, 4 );
+local HandleDispel = function( self, auraName, event )
+	local message = "";
+	if ( event == "SPELL_STOLEN" ) then
+		message = "|cff00ff00Stolen:|r ";
+	elseif ( event == "SPELL_DISPEL" ) then
+		message = "|cff00ff00Removed:|r ";
+	elseif ( event == "SPELL_DISPEL_FAILED" ) then
+		message = "|cffff0000Failed:|r ";
+	else
+		error( "Unhandled event '" .. event .. "'" );
+	end
+
+	self:Add( message .. auraName, self.maxSize, self.dispelColor, 4 );
 end
 
 -- **** event handlers ****
@@ -58,11 +69,11 @@ local OnCombatLogEventUnfiltered = function( self, timestamp, event, sourceGUID,
 		if ( event == "SPELL_STOLEN" or event == "SPELL_DISPEL" ) then
 			local spellId, spellName, spellSchool, extraSpellID, extraSpellName, extraSchool, auraType = ...;
 			
-			HandleDispel( self, extraSpellName, false );
+			HandleDispel( self, extraSpellName, event );
 		elseif ( event == "SPELL_DISPEL_FAILED" ) then
 			local spellId, spellName, spellSchool, extraSpellID, extraSpellName, extraSchool = ...;
 
-			HandleDispel( self, extraSpellName, true );
+			HandleDispel( self, extraSpellName, event );
 		end
 	end
 	
