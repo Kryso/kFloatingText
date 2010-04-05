@@ -1,7 +1,7 @@
 ## Interface: 30300
 ## Title: kFloatingText
 ## Author: Kryso 
-## Dependencies: kCore, kWidgets, kEvents, Tukui
+## Dependencies: kCore, Tukui
 
 CombatTextFrame.lua
 kFloatingText.lua
